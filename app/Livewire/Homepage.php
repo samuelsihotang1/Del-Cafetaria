@@ -8,6 +8,6 @@ class Homepage extends Component
 {
   public function render()
   {
-    return view('homepage')->title('Homepage');
+    return view('homepage')->title('Dashboard - Del Cafetaria');
   }
 }
