@@ -24,7 +24,10 @@
         <table class="table table-hover">
           <thead>
             <tr>
-              <th scope="col">Pesanan</th>
+              @if (Auth()->user()->role == 'admin')
+              <th scope="col">Pemesan</th>
+              @endif
+              <th scope="col">Nama Pesanan</th>
               <th scope="col">Harga</th>
               <th scope="col">Jumlah</th>
               <th scope="col">Total</th>
@@ -34,9 +37,22 @@
           <tbody>
             @foreach ($pesanan as $pesan)
             @php
+            $foodPesan = NULL;
+            if (Auth()->user()->role == 'admin') {
             $foodPesan = App\Models\Food::find($pesan->food_id);
+            $pemesan = App\Models\User::find($pesan->user_id);
+            }
+            else {
+            if ($pesan->user_id == Auth()->user()->id) {
+            $foodPesan = App\Models\Food::find($pesan->food_id);
+            }
+            }
             @endphp
+            @isset($foodPesan)
             <tr>
+              @if (Auth()->user()->role == 'admin')
+              <td>{{ $pemesan->name }}</td>
+              @endif
               <td>{{ $foodPesan->name }}</td>
               <td>{{ $foodPesan->price }}</td>
               <td>{{ $pesan->jumlah }}</td>
@@ -65,6 +81,7 @@
                 </div>
               </div>
             </tr>
+            @endisset
             @endforeach
           </tbody>
         </table>
