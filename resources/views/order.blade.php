@@ -24,19 +24,26 @@
         <table class="table table-hover">
           <thead>
             <tr>
-              <th scope="col">Kode Order</th>
-              <th scope="col">Pelanggan</th>
               <th scope="col">Pesanan</th>
+              <th scope="col">Harga</th>
+              <th scope="col">Jumlah</th>
+              <th scope="col">Total</th>
               <th scope="col">Aksi</th>
             </tr>
           </thead>
           <tbody>
+            @foreach ($pesanan as $pesan)
+            @php
+            $foodPesan = App\Models\Food::find($pesan->food_id);
+            @endphp
             <tr>
-              <th scope="row">1</th>
-              <td>Arya Gunawan</td>
-              <td>Milk Boba</td>
+              <td>{{ $foodPesan->name }}</td>
+              <td>{{ $foodPesan->price }}</td>
+              <td>{{ $pesan->jumlah }}</td>
+              <td>Rp {{ $foodPesan->price * $pesan->jumlah }}</td>
               <td>
-                <button class="btn btn-info"><i class="bi bi-trash"></i></button>
+                <button type="button" wire:click="deletePesan({{ $pesan->id }})" class="btn btn-info"><i
+                    class="bi bi-trash"></i></button>
               </td>
 
               <!-- Hapus Modal -->
@@ -57,8 +64,8 @@
                   </div>
                 </div>
               </div>
-
             </tr>
+            @endforeach
           </tbody>
         </table>
       </div>

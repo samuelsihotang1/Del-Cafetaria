@@ -27,15 +27,31 @@ class Order extends Component
 
   public function addPesanan()
   {
-    DB::table('pesanans')->insert([
-      'user_id' => Auth()->user()->id,
-      'food_id' => $this->chosenFood,
-      'jumlah' => $this->jumlah,
-      'created_at' => now(),
-      'updated_at' => now(),
-    ]);
+    $pesanandulu = Pesanan::where('user_id', Auth()->user()->id)->where('food_id', $this->chosenFood)->first();
 
+    if (isset($pesanandulu)) {
+      $pesanandulu->update([
+        'jumlah' => $pesanandulu->jumlah + $this->jumlah,
+      ]);
+    } else {
+      DB::table('pesanans')->insert([
+        'user_id' => Auth()->user()->id,
+        'food_id' => $this->chosenFood,
+        'jumlah' => $this->jumlah,
+        'created_at' => now(),
+        'updated_at' => now(),
+      ]);
+    }
     $this->chosenFood = NULL;
     $this->jumlah = NULL;
+
+    $this->boot();
+  }
+
+  public function deletePesan($id)
+  {
+    DB::table('pesanans')->where('id', $id)->delete();
+
+    $this->boot();
   }
 }
