@@ -31,6 +31,7 @@
 </head>
 
 <body>
+  @if(!isset($navbar))
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="d-flex align-items-center justify-content-between">
@@ -54,7 +55,7 @@
         <li class="nav-item dropdown pe-3">
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="{{ asset('img/profile-logo.png') }}" alt="Profile" class="rounded-circle" />
-            <span class="d-none d-md-block dropdown-toggle ps-2">Username</span> </a>
+            <span class="d-none d-md-block dropdown-toggle ps-2">{{ Auth()->user()->name }}</span> </a>
           <!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -62,7 +63,7 @@
               <img src="{{ asset('img/profile-logo.png') }}" class="rounded-circle avatar-md" alt="Logo Akun"
                 style="width : 50px;">
               <div class="ml-2 d-flex flex-column justify-content-center mt-2">
-                <h6>Username</h6>
+                <h6>{{ Auth()->user()->name }}</h6>
                 <span>Mahasiswa</span>
             </li>
             <li>
@@ -70,7 +71,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.php">
+              <a class="dropdown-item d-flex align-items-center" href="/profile">
                 <i class="bi bi-person"></i>
                 <span>My Profile</span>
               </a>
@@ -100,7 +101,7 @@
   <aside id="sidebar" class="sidebar">
     <ul class="sidebar-nav" id="sidebar-nav">
       <li class="nav-item">
-        <a class="nav-link collapsed" href="index.php">
+        <a class="nav-link {{ $title === 'Dashboard - Del Cafetaria' ? '' : 'collapsed'}}" href="/">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -108,7 +109,7 @@
       <!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-menu.php">
+        <a class="nav-link {{ $title === 'Menu - Del Cafetaria' ? '' : 'collapsed'}}" href="/menu">
           <i class="bi bi-list"></i>
           <span>Menu</span>
         </a>
@@ -116,7 +117,7 @@
       <!-- End Menu Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-order.php">
+        <a class="nav-link {{ $title === 'Order - Del Cafetaria' ? '' : 'collapsed'}}" href="/order">
           <i class="bi bi-cart"></i>
           <span>Order</span>
         </a>
@@ -124,42 +125,20 @@
       <!-- End Order Nav -->
 
       <li class="nav-item">
-        <a class="nav-link" href="pages-contact.php">
+        <a class="nav-link {{ $title === 'Contact - Del Cafetaria' ? '' : 'collapsed'}}" href="/contact">
           <i class="bi bi-envelope"></i>
           <span>Contact</span>
         </a>
       </li>
       <!-- End Contact Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-register.php">
-          <i class="bi bi-card-list"></i>
-          <span>Register</span>
-        </a>
-      </li>
-      <!-- End Register Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-login.php">
-          <i class="bi bi-box-arrow-in-right"></i>
-          <span>Login</span>
-        </a>
-      </li>
-      <!-- End Login Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-error-404.php">
-          <i class="bi bi-dash-circle"></i>
-          <span>Error 404</span>
-        </a>
-      </li>
-      <!-- End Error 404 Page Nav -->
     </ul>
   </aside>
   <!-- End Sidebar-->
+  @endif
 
   {{ $slot }}
 
+  @if(!isset($navbar))
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
@@ -178,6 +157,7 @@
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
       class="bi bi-arrow-up-short"></i></a>
+  @endif
 
   <!-- Vendor JS Files -->
   <script src="{{ asset('vendor/apexcharts/apexcharts.min.js') }}"></script>

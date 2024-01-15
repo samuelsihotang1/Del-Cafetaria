@@ -1,71 +1,76 @@
 <x-layouts.app>
   <x-slot name="title">
-    Login
+    Login - Del Cafetaria
   </x-slot>
 
   <x-slot name="navbar">
     NoNavbar
   </x-slot>
 
-  <div class="flex flex-col bg-white" style="height: 100vh">
-    <div class="flex flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-      <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-        <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&amp;shade=600"
-          alt="Your Company">
-        <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Sign in to your account
-        </h2>
-      </div>
 
-      <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form class="space-y-6" action="{{ route('login') }}" method="POST">
-          @csrf
-          <div>
-            <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
-            <div class="mt-2">
-              <input id="email" type="email"
-                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+  <main>
+    <div class="container">
+      <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+              <div class="d-flex justify-content-center py-4">
+                <a href="" class="logo d-flex align-items-center w-auto">
+                  <img src="/img/DEL.png" alt="" />
+                  <span class="d-none d-lg-block">Del Cafetaria</span>
+                </a>
+              </div>
+              <!-- End Logo -->
 
-              @error('email')
-              <span role="alert">
-                <strong>{{ $message }}</strong>
-              </span>
-              @enderror
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="pt-4 pb-2">
+                    <h5 class="card-title text-center pb-0 fs-4">
+                      Login to Your Account
+                    </h5>
+                    <p class="text-center small">
+                      Enter your username & password to login
+                    </p>
+                  </div>
+
+                  <form class="row g-3 needs-validation" action="{{ route('login') }}" method="POST">
+                    @csrf
+                    <div class="col-12">
+                      <label for="email" class="form-label">Email address</label>
+                      <div class="input-group has-validation">
+                        <input type="email" name="email" class="form-control" id="email" required />
+                        <div class="invalid-feedback">
+                          Please enter your Email address.
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <label for="password" class="form-label">Password</label>
+                      <input type="password" name="password" class="form-control" id="password" required />
+                      <div class="invalid-feedback">
+                        Please enter your password!
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <button class="btn btn-primary w-100" type="submit">
+                        Login
+                      </button>
+                    </div>
+                    <div class="col-12">
+                      <p class="small mb-0">
+                        Don't have account?
+                        <a href="/register">Create an account</a>
+                      </p>
+                    </div>
+                  </form>
+                </div>
+              </div>
             </div>
           </div>
-
-          <div>
-            <div class="flex items-center justify-between">
-              <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
-            </div>
-            <div class="mt-2">
-              <input id="password" type="password"
-                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                name="password" required autocomplete="current-password">
-
-              @error('password')
-              <span role="alert">
-                <strong>{{ $message }}</strong>
-              </span>
-              @enderror
-            </div>
-          </div>
-
-          <div>
-            <button type="submit"
-              class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-              Sign in</button>
-          </div>
-        </form>
-
-        <p class="mt-10 text-center text-sm text-gray-500">
-          Belum punya akun?
-          <!-- space -->
-          <a href="{{ route('register') }}" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-            Daftar Akun</a>
-        </p>
-      </div>
+      </section>
     </div>
-  </div>
+  </main>
 
 </x-layouts.app>
